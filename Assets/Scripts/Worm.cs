@@ -20,12 +20,17 @@ public class Worm : MonoBehaviour
     float wormSize = 1f;
     [SerializeField]
     float colourOffset = 0.3f;
+    [SerializeField]
+    float rangeDist = 0.2f;
+    float speed = 1f;
+    public Vector2 targetPos;
 
     void Awake() {
         SetUpWorm();
+        speed = Random.Range(4f, 8f);
     }
 
-    Vector3 GetRandomPosition () {
+    Vector3 GetZeroedPosition () {
         return Vector3.zero;
     }
 
@@ -38,7 +43,7 @@ public class Worm : MonoBehaviour
 
         for (var i = 0; i < randSize; i++)
         {
-            temp = Instantiate(nodeSprite, GetRandomPosition (), Quaternion.identity);
+            temp = Instantiate(nodeSprite, GetZeroedPosition (), Quaternion.identity);
 
             if (i % 2 == 0) {
                 temp.GetComponent<SpriteRenderer>().color = selectedColour;
@@ -73,5 +78,22 @@ public class Worm : MonoBehaviour
         transform.localScale = Vector2.one * wormSize;
     }
 
+    void Update() {
+        Move();
+        if ((transform.position - new Vector3(targetPos.x, targetPos.y, 0)).sqrMagnitude <= rangeDist) {
+            ChangeTarget();
+        }
+    }
+
+    void Move () {
+        head.transform.Translate(targetPos * speed / 100 * Time.deltaTime);   
+    }
+
+    public void ChangeTarget () {
+        Vector2 min = WormsManager.minEdge;
+        Vector2 max = WormsManager.maxEdge;
+
+        targetPos = new Vector2(Random.Range(min.x, max.x), Random.Range(min.y, max.y));
+    }
   
 }
