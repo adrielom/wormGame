@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 1625772330026548635}
   - component: {fileID: 6434548172143656153}
   - component: {fileID: 1855451562318068173}
+  - component: {fileID: 864800387188450205}
   m_Layer: 0
   m_Name: wormHead
   m_TagString: Untagged
@@ -298,6 +299,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &864800387188450205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3732453444172147113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2777edb0937a5b54db4bbdfa57de4cd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4179926319919976509
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,3 +672,7 @@ MonoBehaviour:
   bodyDistance: 0.65
   wormSize: 0.3
   colourOffset: 0.5
+  rangeDist: 1
+  targetPos: {x: 0, y: 0}
+  camera: {fileID: 459639206093464633, guid: e8322b3084315e64da5d3e57a20efa40, type: 3}
+  dragging: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Worm : MonoBehaviour
 {
@@ -21,13 +22,20 @@ public class Worm : MonoBehaviour
     [SerializeField]
     float colourOffset = 0.3f;
     [SerializeField]
-    float rangeDist = 0.2f;
+    float rangeDist = 1f;
     float speed = 1f;
+    [SerializeField]
     public Vector2 targetPos;
+    public Camera camera;
+    public bool dragging = false;
 
     void Awake() {
         SetUpWorm();
         speed = Random.Range(4f, 8f);
+    }
+
+    void Start() {
+        transform.DOScale (Vector3.one * wormSize, .3f);
     }
 
     Vector3 GetZeroedPosition () {
@@ -35,7 +43,7 @@ public class Worm : MonoBehaviour
     }
 
     public void SetUpWorm () {
-          int randSize = Random.Range(4, 8);
+        int randSize = Random.Range(4, 8);
         GameObject temp = null;
         Color selectedColour = colors[(int) Random.Range(0, colors.Length)];
         sprite.GetComponent<SpriteRenderer>().color = selectedColour;
@@ -74,26 +82,28 @@ public class Worm : MonoBehaviour
             wormRingList.Add (wormR);
         }
 
-
-        transform.localScale = Vector2.one * wormSize;
+        transform.localScale = Vector2.zero;
     }
 
     void Update() {
+        if (dragging) {
+            Vector3 pos = camera.ScreenToWorldPoint(Input.mousePosition);
+            head.transform.position = new Vector3(pos.x, pos.y, 0);
+            return;
+        }
         Move();
-        if ((transform.position - new Vector3(targetPos.x, targetPos.y, 0)).sqrMagnitude <= rangeDist) {
+        float mg = (new Vector3(targetPos.x, targetPos.y, 0) - head.transform.position).sqrMagnitude;
+        if (mg <= rangeDist * rangeDist) {
             ChangeTarget();
         }
     }
 
     void Move () {
-        head.transform.Translate(targetPos * speed / 100 * Time.deltaTime);   
+        head.transform.position = Vector3.MoveTowards(head.transform.position, targetPos, 0.2f * Time.deltaTime);   
     }
 
     public void ChangeTarget () {
-        Vector2 min = WormsManager.minEdge;
-        Vector2 max = WormsManager.maxEdge;
-
-        targetPos = new Vector2(Random.Range(min.x, max.x), Random.Range(min.y, max.y));
+        targetPos = WormsManager.GetRandomPosition();
     }
   
 }
