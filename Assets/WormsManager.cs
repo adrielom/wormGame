@@ -28,6 +28,12 @@ public class WormsManager : MonoBehaviour
         return list[Random.Range(0, list.Count)];
     }
 
+    public static GameObject GetRandomActiveWormDiffColor (Color color) {
+        var list = wormPool.ToList().FindAll(x => x.activeSelf == false);
+        var colourSortedList = list.FindAll(v => v.GetComponent<Worm>().selectedColour != color);
+        return colourSortedList.Count == 0 ? list[Random.Range(0, list.Count)] : colourSortedList[Random.Range(0, colourSortedList.Count)];   
+    }
+
     public static Vector3 GetRandomPosition () {
         return new Vector3(Random.Range(minEdge.x, maxEdge.x), Random.Range(minEdge.y, maxEdge.y), 0);
     }

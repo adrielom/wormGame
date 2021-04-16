@@ -8,6 +8,7 @@ public class Worm : MonoBehaviour
     Vector3 lastPosition;
     List<GameObject> list = new List<GameObject>();
     List<WormRing> wormRingList = new List<WormRing>();
+    public Color selectedColour;
     Color [] colors = new Color[] { Color.red, Color.yellow, Color.blue };
     [SerializeField]
     GameObject nodeSprite;
@@ -45,7 +46,7 @@ public class Worm : MonoBehaviour
     public void SetUpWorm () {
         int randSize = Random.Range(4, 8);
         GameObject temp = null;
-        Color selectedColour = colors[(int) Random.Range(0, colors.Length)];
+        selectedColour = colors[(int) Random.Range(0, colors.Length)];
         sprite.GetComponent<SpriteRenderer>().color = selectedColour;
         var vect = Vector3.one * bodyDistance;
 
