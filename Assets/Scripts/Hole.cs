@@ -5,9 +5,13 @@ using DG.Tweening;
 
 public class Hole : MonoBehaviour
 {
+
+   public AudioSource audioSource;
+
    void OnTriggerStay2D (Collider2D other) {
       Worm worm = other.gameObject.GetComponentInParent<Worm>();
       if (other.gameObject.tag == "Worm" && !worm.dragging) {
+         audioSource.Play();
          StartCoroutine(ShiftWorms(worm, 0.2f));
       }
    }
@@ -22,5 +26,7 @@ public class Hole : MonoBehaviour
       newWorm.transform.DOScale(Vector3.one * 0.3f, 0.5f);
       other.gameObject.SetActive(false);
    }
+
+
    
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Clicker : MonoBehaviour
 {
-    
+    public AudioSource audioSource;
     Worm worm;
 
     void Start() {
@@ -13,6 +13,7 @@ public class Clicker : MonoBehaviour
 
     void OnMouseDown() {
         worm.dragging = true;
+        audioSource.Play();
     }
 
     void OnMouseUp() {
