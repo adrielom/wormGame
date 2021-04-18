@@ -19,7 +19,6 @@ public class Hole : MonoBehaviour
    IEnumerator ShiftWorms (Worm other, float time) {
       yield return new WaitForSeconds(time);
       GameObject newWorm = WormsManager.GetRandomActiveWormDiffColor(other.selectedColour);
-      print (newWorm);
       newWorm.transform.position = WormsManager.GetRandomPosition();    
       newWorm.transform.localScale = Vector3.zero;
       newWorm.SetActive(true);

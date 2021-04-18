@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Clicker : MonoBehaviour
 {
-    public AudioSource audioSource;
+    AudioSource audioSource;
     Worm worm;
-
     void Start() {
         worm = GetComponentInParent<Worm>();
+        audioSource = GameObject.Find("Audio Pop").GetComponent<AudioSource>();
     }
 
     void OnMouseDown() {
+        if (gameObject.activeSelf == false) return;
         worm.dragging = true;
-        audioSource.Play();
+        audioSource?.Play();
     }
 
     void OnMouseUp() {

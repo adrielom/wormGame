@@ -19,6 +19,7 @@ public class WormsManager : MonoBehaviour
             pos =  new Vector3(Random.Range(minEdge.x, maxEdge.x),Random.Range(minEdge.y, maxEdge.y), 0);
             wormPool[i] = Instantiate(WormPrefab, pos, Quaternion.identity);
             wormPool[i].GetComponent<Worm>().ChangeTarget();
+            wormPool[i].transform.SetParent(transform);
             if (i % 2 != 0) wormPool[i].SetActive(false);
         }
     }
